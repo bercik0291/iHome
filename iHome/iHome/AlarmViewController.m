@@ -8,6 +8,7 @@
 
 // controller
 #import "AlarmViewController.h"
+#import "EditAlarmViewController.h"
 
 // cell
 #import "AlarmCell.h"
@@ -20,6 +21,7 @@
 #import "Alarm+Additions.h"
 
 @interface AlarmViewController ()
+@property (nonatomic, strong) Alarm *selectedAlarm;
 @end
 
 @implementation AlarmViewController
@@ -49,7 +51,6 @@
     [super viewDidLoad];
 }
 
-
 #pragma mark - Table view data source
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -68,6 +69,45 @@
     Alarm *alarm = [self.resultsController objectAtIndexPath:indexPath];
     
     cell.titleLabel.text = [[NSDateFormatter defaultDateFormatter] stringFromDate:alarm.clock];
+    [cell.switchButton addTarget:self action:@selector(switchButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.switchButton setOn:[alarm.isOn boolValue]];
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.selectedAlarm = [self.resultsController objectAtIndexPath:indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        // Delete the row from the data source
+        Alarm *alarm = [self.resultsController objectAtIndexPath:indexPath];
+        [[[[HDSharedDocument defaultDocument] document] managedObjectContext] deleteObject:alarm];
+    }
+}
+
+#pragma mark - Button's Actions
+
+- (void)switchButtonAction:(UISwitch *)sender
+{
+    
+}
+
+- (IBAction)editButtonAction:(id)sender
+{
+    [self setEditing:!self.isEditing animated:YES];
+}
+
+#pragma mark - Navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"EditAlarm"]) {
+        EditAlarmViewController *vc = [segue destinationViewController];
+        [vc setAlarm:self.selectedAlarm];
+    }
 }
 
 @end

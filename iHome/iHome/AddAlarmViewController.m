@@ -33,6 +33,11 @@
 
 - (IBAction)saveButtonAction:(id)sender
 {
+    if ([_optionViewController.selectedOptions count] <= 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:Nil message:@"Wybierz opcje" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil, nil];
+        [alert show];
+    }
+    
     // compare date
     NSComparisonResult result = [[NSDate date] compare:[self.datePicker date]];
 
@@ -48,17 +53,19 @@
     // create local notification
     UILocalNotification *alarm = [[UILocalNotification alloc] init];
     alarm.fireDate = date;
-    alarm.alertBody = @"Alarm";
-    alarm.alertAction = @"Drzemka";
+    alarm.alertBody = NSLocalizedString(@"Alarm", nil);
+    alarm.alertAction = NSLocalizedString(@"Wyłącz", nil);
     alarm.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
     alarm.timeZone = [NSTimeZone defaultTimeZone];
+    alarm.soundName = @"alarm.mp3";
     
     // schedule local notification
     [[UIApplication sharedApplication] scheduleLocalNotification:alarm];
     
     // create new alarm
     NSDictionary *params = @{@"clock" : date,
-                             @"options" : _optionViewController.selectedOptions
+                             @"options" : _optionViewController.selectedOptions,
+                             @"is_on" : @(YES)
                              };
     [Alarm createNewAlarmWithDictionary:params withContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
     

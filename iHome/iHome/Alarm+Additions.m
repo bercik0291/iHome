@@ -28,6 +28,7 @@
         
         newAlarm = [NSEntityDescription insertNewObjectForEntityForName:@"Alarm" inManagedObjectContext:context];
         newAlarm.clock = [dict objectForKey:@"clock"];
+        newAlarm.isOn = [dict objectForKey:@"is_on"];
         
         NSArray *options = [dict objectForKey:@"options"];
         for (Option *option in options) {
@@ -41,6 +42,14 @@
     }
     
     return newAlarm;
+}
+
++ (Alarm *)getAlarmWithFireDate:(NSDate *)fireDate withContext:(NSManagedObjectContext *)context
+{
+    NSFetchRequest *request = [self alarmFetchRequest];
+    request.predicate = [NSPredicate predicateWithFormat:@"clock == %@", fireDate];
+    
+    return [[context executeFetchRequest:request error:nil] lastObject];
 }
 
 #pragma mark - Fetch Request

@@ -7,11 +7,13 @@
 //
 
 #import "Alarm.h"
+#import "Option.h"
 
 
 @implementation Alarm
 
 @dynamic clock;
+@dynamic isOn;
 @dynamic options;
 
 @end

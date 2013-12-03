@@ -11,9 +11,14 @@
 #import "NSDictionary+JSON.h"
 
 #import "Option+Additions.h"
+#import "Alarm+Additions.h"
 
 @interface HomeAppDelegate () <UIAlertViewDelegate>
+@property (nonatomic, strong) UILocalNotification *localNotification;
+@property (nonatomic, strong) UIWebView *webView;
 @end
+
+const static NSString *URL =@ "http://192.168.1.10/";
 
 @implementation HomeAppDelegate
 
@@ -63,6 +68,10 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
+    // get pointer to notification
+    self.localNotification = notification;
+    
+    // show alert view
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:Nil message:@"Alarm" delegate:self cancelButtonTitle:@"Drzemka" otherButtonTitles:@"Ok", nil];
     [alertView show];
     
@@ -70,6 +79,57 @@
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    switch (buttonIndex) {
+        case 0: // drzemka
+            [self rescheduleNotification]; break;
+        default:
+            [self cancelNotification]; break;
+            break;
+    }
+}
+
+- (void)rescheduleNotification
+{
+    // cancel notification
+    [[UIApplication sharedApplication] cancelLocalNotification:self.localNotification];
+    
+    // set new fire date
+    NSDate *date = [NSDate dateWithTimeInterval:600 sinceDate:self.localNotification.fireDate];
+    self.localNotification.fireDate = date;
+    
+    // schedule notification
+    [[UIApplication sharedApplication] scheduleLocalNotification:self.localNotification];
+    self.localNotification = nil;
+    
+    // change alarm object (core data)
+    [self changeAlarmWithState:YES];
+}
+
+- (void)cancelNotification
+{
+    // cancel notification
+    [[UIApplication sharedApplication] cancelLocalNotification:self.localNotification];
+    
+    // change alarm object (core data)
+    [self changeAlarmWithState:NO];
+}
+
+- (void)changeAlarmWithState:(BOOL)state
+{
+    
+    Alarm *alarm = [Alarm getAlarmWithFireDate:self.localNotification.fireDate withContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
+    alarm.isOn = @(state);
+    
+//    self.webView = [[UIWebView alloc] init];
+//    NSURL *url = [NSURL URLWithString:[URL stringByAppendingString:]];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    [self.webView loadRequest:request];
+    
+    [[[[HDSharedDocument defaultDocument] document] managedObjectContext] performBlock:^{
+        
+        [[[[HDSharedDocument defaultDocument] document] managedObjectContext] save:nil];
+        [[HDSharedDocument defaultDocument] saveDocument];
+    }];
     
 }
 @end

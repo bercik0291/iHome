@@ -13,7 +13,7 @@
     static NSDateFormatter *dateFormatter;
     if (!dateFormatter) {
         dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"'HH':'mm"];
+        [dateFormatter setDateFormat:@"HH:mm"];
     }
     return dateFormatter;
 }

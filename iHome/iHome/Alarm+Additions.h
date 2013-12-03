@@ -10,4 +10,5 @@
 
 @interface Alarm (Additions)
 + (Alarm *)createNewAlarmWithDictionary:(NSDictionary *)dict withContext:(NSManagedObjectContext *)context;
++ (Alarm *)getAlarmWithFireDate:(NSDate *)fireDate withContext:(NSManagedObjectContext *)context;
 @end

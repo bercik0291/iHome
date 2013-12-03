@@ -1,5 +1,5 @@
 //
-//  OpenCoreDataViewController.h
+//  HViewController.h
 //  iHome
 //
 //  Created by Hubert Drąg on 03.12.2013.
@@ -8,5 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface OpenCoreDataViewController : UIViewController
+@interface HViewController : UITableViewController
+
 @end

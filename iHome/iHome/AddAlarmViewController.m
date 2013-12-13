@@ -15,6 +15,7 @@
 
 // other
 #import "HDSharedDocument.h"
+#import "HomeDriver.h"
 
 @interface AddAlarmViewController ()
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
@@ -51,16 +52,7 @@
     }
 
     // create local notification
-    UILocalNotification *alarm = [[UILocalNotification alloc] init];
-    alarm.fireDate = date;
-    alarm.alertBody = NSLocalizedString(@"Alarm", nil);
-    alarm.alertAction = NSLocalizedString(@"Wyłącz", nil);
-    alarm.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
-    alarm.timeZone = [NSTimeZone defaultTimeZone];
-    alarm.soundName = @"alarm.mp3";
-    
-    // schedule local notification
-    [[UIApplication sharedApplication] scheduleLocalNotification:alarm];
+    [[HomeDriver mainDriver] createLocalNotificationWithDate:date];
     
     // create new alarm
     NSDictionary *params = @{@"clock" : date,

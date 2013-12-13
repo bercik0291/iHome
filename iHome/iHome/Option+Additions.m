@@ -37,6 +37,13 @@
     return newOption;
 }
 
++ (void)loadOptionsFromArray:(NSArray *)options toContext:(NSManagedObjectContext *)context
+{
+    for (NSDictionary *params in options) {
+        [self createNewOptionWithDictionary:params withContext:context];
+    }
+}
+
 #pragma mark - Fetch Request
 
 + (NSFetchRequest *)optionFetchRequest

@@ -6,8 +6,9 @@
         <relationship name="options" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Option" inverseName="alarm" inverseEntity="Option" syncable="YES"/>
     </entity>
     <entity name="Option" representedClassName="Option" syncable="YES">
-        <attribute name="codeOff" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="codeOn" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="codeOff" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="codeOn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="isOn" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="alarm" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Alarm" inverseName="options" inverseEntity="Alarm" syncable="YES"/>
     </entity>

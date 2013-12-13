@@ -2,7 +2,7 @@
 //  Option.m
 //  iHome
 //
-//  Created by Hubert Drąg on 03.12.2013.
+//  Created by Hubert Drąg on 12.12.2013.
 //  Copyright (c) 2013 Hubert Drąg. All rights reserved.
 //
 
@@ -12,9 +12,10 @@
 
 @implementation Option
 
-@dynamic title;
-@dynamic codeOn;
 @dynamic codeOff;
+@dynamic codeOn;
+@dynamic title;
+@dynamic isOn;
 @dynamic alarm;
 
 @end

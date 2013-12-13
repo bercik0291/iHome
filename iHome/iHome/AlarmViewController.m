@@ -14,6 +14,7 @@
 #import "AlarmCell.h"
 
 // other
+#import "HomeDriver.h"
 #import "HDSharedDocument.h"
 #import "NSDateFormatter+Additions.h"
 
@@ -66,11 +67,14 @@
 
 - (void)configureCell:(AlarmCell *)cell withIndexPath:(NSIndexPath *)indexPath
 {
+    // get alarm object
     Alarm *alarm = [self.resultsController objectAtIndexPath:indexPath];
     
+    // fill cell
     cell.titleLabel.text = [[NSDateFormatter defaultDateFormatter] stringFromDate:alarm.clock];
     [cell.switchButton addTarget:self action:@selector(switchButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [cell.switchButton setOn:[alarm.isOn boolValue]];
+    [cell.switchButton setTag:indexPath.row];
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,7 +97,32 @@
 
 - (void)switchButtonAction:(UISwitch *)sender
 {
+    if ([sender isOn]) {
+        // get index path
+        NSIndexPath *ip = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+        
+        // get alarm
+        Alarm *alarm = [self.resultsController objectAtIndexPath:ip];
+
+        // update alarm data
+        NSDate *date;
+        NSComparisonResult result = [[NSDate date] compare:alarm.clock];
+        
+        if (result == NSOrderedDescending) {
+            date = [NSDate dateWithTimeInterval:86400 sinceDate:alarm.clock];
+        } else {
+            date = alarm.clock;
+        }
+        
+        alarm.isOn = @(YES);
+        alarm.clock = date;
+        
+        // create local notification
+        [[HomeDriver mainDriver] createLocalNotificationWithDate:date];
+    }
     
+    [[[[HDSharedDocument defaultDocument] document] managedObjectContext] save:nil];
+    [[HDSharedDocument defaultDocument] saveDocument];
 }
 
 - (IBAction)editButtonAction:(id)sender
@@ -102,12 +131,12 @@
 }
 
 #pragma mark - Navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if ([[segue identifier] isEqualToString:@"EditAlarm"]) {
-        EditAlarmViewController *vc = [segue destinationViewController];
-        [vc setAlarm:self.selectedAlarm];
-    }
-}
+//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+//{
+//    if ([[segue identifier] isEqualToString:@"EditAlarm"]) {
+//        EditAlarmViewController *vc = [segue destinationViewController];
+//        [vc setAlarm:self.selectedAlarm];
+//    }
+//}
 
 @end

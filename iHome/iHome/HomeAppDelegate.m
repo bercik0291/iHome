@@ -7,33 +7,35 @@
 //
 
 #import "HomeAppDelegate.h"
+#import <AVFoundation/AVFoundation.h>
+
+// other
 #import "HDSharedDocument.h"
 #import "NSDictionary+JSON.h"
+#import "HomeDriver.h"
 
+// models
 #import "Option+Additions.h"
 #import "Alarm+Additions.h"
 
 @interface HomeAppDelegate () <UIAlertViewDelegate>
 @property (nonatomic, strong) UILocalNotification *localNotification;
-@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) Alarm *currentAlarm;
+@property (nonatomic, strong) AVAudioPlayer *player;
 @end
-
-const static NSString *URL =@ "http://192.168.1.10/";
 
 @implementation HomeAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
    	[[HDSharedDocument defaultDocument] openDocument:^{
         
         NSURL *jsonURL = [[NSBundle mainBundle] URLForResource:@"DefaultObject" withExtension:@"json"];
         NSData *jsonData = [NSData dataWithContentsOfURL:jsonURL];
         NSDictionary *dict = [NSDictionary dictionaryFromJSON:jsonData];
         
-        NSArray *options = [dict objectForKey:@"options"];
-        for (NSDictionary *params in options) {
-            [Option createNewOptionWithDictionary:params withContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
-        }
+        [Option loadOptionsFromArray:[dict objectForKey:@"options"] toContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
     }];
     
     return YES;
@@ -71,8 +73,13 @@ const static NSString *URL =@ "http://192.168.1.10/";
     // get pointer to notification
     self.localNotification = notification;
     
+    [self turnOptionsWithState:YES];
+    
     // show alert view
     UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:Nil message:@"Alarm" delegate:self cancelButtonTitle:@"Drzemka" otherButtonTitles:@"Ok", nil];
+    
+    [self.player play];
+    
     [alertView show];
     
 }
@@ -82,10 +89,14 @@ const static NSString *URL =@ "http://192.168.1.10/";
     switch (buttonIndex) {
         case 0: // drzemka
             [self rescheduleNotification]; break;
-        default:
+        case 1: // ok
             [self cancelNotification]; break;
             break;
+        default:
+            break;
     }
+    
+    [self.player stop];
 }
 
 - (void)rescheduleNotification
@@ -94,7 +105,7 @@ const static NSString *URL =@ "http://192.168.1.10/";
     [[UIApplication sharedApplication] cancelLocalNotification:self.localNotification];
     
     // set new fire date
-    NSDate *date = [NSDate dateWithTimeInterval:600 sinceDate:self.localNotification.fireDate];
+    NSDate *date = [NSDate dateWithTimeInterval:30 sinceDate:self.localNotification.fireDate];
     self.localNotification.fireDate = date;
     
     // schedule notification
@@ -109,27 +120,72 @@ const static NSString *URL =@ "http://192.168.1.10/";
 {
     // cancel notification
     [[UIApplication sharedApplication] cancelLocalNotification:self.localNotification];
+    self.localNotification = nil;
     
     // change alarm object (core data)
     [self changeAlarmWithState:NO];
+    
+    // turn kettle
+    [self turnKettleOn];
 }
 
 - (void)changeAlarmWithState:(BOOL)state
 {
+    self.currentAlarm = [Alarm getAlarmWithFireDate:self.localNotification.fireDate withContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
+    self.currentAlarm.isOn = @(state);
     
-    Alarm *alarm = [Alarm getAlarmWithFireDate:self.localNotification.fireDate withContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
-    alarm.isOn = @(state);
-    
-//    self.webView = [[UIWebView alloc] init];
-//    NSURL *url = [NSURL URLWithString:[URL stringByAppendingString:]];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    [self.webView loadRequest:request];
-    
-    [[[[HDSharedDocument defaultDocument] document] managedObjectContext] performBlock:^{
-        
-        [[[[HDSharedDocument defaultDocument] document] managedObjectContext] save:nil];
-        [[HDSharedDocument defaultDocument] saveDocument];
-    }];
-    
+    [self save];
+
+    [self turnOptionsWithState:NO];
 }
+
+- (void)turnOptionsWithState:(BOOL)state
+{
+    // trun all options of this alarm
+    for (Option *option in self.currentAlarm.options) {
+        
+        if ([option.title isEqualToString:@"Czajnik"]) continue;
+        else {
+            
+            int opt = state ? [option.codeOn integerValue] : [option.codeOff integerValue];;
+            [[HomeDriver mainDriver] turnOptionWithType:opt];
+            option.isOn = @(state);
+        }
+    }
+    
+    [self save];
+}
+
+- (void)turnKettleOn
+{
+    [[HomeDriver mainDriver] turnKettleOn];
+    
+    for (Option *option in self.currentAlarm.options) {
+        if ([[option title] isEqualToString:@"Chajnik"]) {
+            option.isOn = @(YES);
+            break;
+        }
+    }
+    
+    [self save];
+}
+
+- (void)save
+{
+    [[[[HDSharedDocument defaultDocument] document] managedObjectContext] save:nil];
+    [[HDSharedDocument defaultDocument] saveDocument];
+}
+
+- (AVAudioPlayer *)player
+{
+    if (!_player) {
+        
+        NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/alarm.mp3", [[NSBundle mainBundle] resourcePath]]];
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
+        _player.numberOfLoops = INT64_MAX;
+    }
+    
+    return _player;
+}
+
 @end

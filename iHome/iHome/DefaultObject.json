@@ -2,13 +2,13 @@
 "options" : [
                 {
                 "title" : "Światło",
-                "code_on" : "1",
-                "code_off" : "2"
+                "code_on" : 1,
+                "code_off" : 2
                 },
                 {
                 "title" : "Czajnik",
-                "code_on" : "3",
-                "code_off" : "4",
+                "code_on" : 3,
+                "code_off" : 4,
                 }
              ]
 }

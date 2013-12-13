@@ -14,12 +14,16 @@
 
 // other
 #import "HDSharedDocument.h"
+#import "HomeDriver.h"
 
 // models
 #import "Option+Additions.h"
 
-@interface HomeViewController ()
-@end
+typedef NS_ENUM(NSInteger, HomeThingType)
+{
+    HomeThingTypeLights = 0,
+    HomeThingTypeKettle,
+};
 
 @implementation HomeViewController
 
@@ -66,6 +70,39 @@
     Option *option = [self.resultsController objectAtIndexPath:indexPath];
     
     cell.titleLabel.text = option.title;
+    [cell.switchButton addTarget:self action:@selector(switchButtonAction:) forControlEvents:UIControlEventTouchUpInside];
+    [cell.switchButton setTag:indexPath.row];
+}
+
+- (void)switchButtonAction:(UISwitch *)sender
+{
+    switch (sender.tag) {
+            
+        case HomeThingTypeLights: {
+
+            if ([sender isOn]) {
+                [[HomeDriver mainDriver] turnLightsOn];
+            } else {
+                [[HomeDriver mainDriver] turnLightsOff];
+            }
+            
+            break;
+        }
+            
+        case HomeThingTypeKettle: {
+            
+            if ([sender isOn]) {
+                [[HomeDriver mainDriver] turnLightsOn];
+            } else {
+                [[HomeDriver mainDriver] turnLightsOff];
+            }
+            
+            break;
+        }
+            
+        default:
+            break;
+    }
 }
 
 #pragma mark - Navigation

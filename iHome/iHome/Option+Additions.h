@@ -10,4 +10,5 @@
 
 @interface Option (Additions)
 + (Option *)createNewOptionWithDictionary:(NSDictionary *)dict withContext:(NSManagedObjectContext *)context;
++ (void)loadOptionsFromArray:(NSArray *)options toContext:(NSManagedObjectContext *)context;
 @end

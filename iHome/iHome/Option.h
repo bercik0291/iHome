@@ -2,7 +2,7 @@
 //  Option.h
 //  iHome
 //
-//  Created by Hubert Drąg on 03.12.2013.
+//  Created by Hubert Drąg on 12.12.2013.
 //  Copyright (c) 2013 Hubert Drąg. All rights reserved.
 //
 
@@ -13,9 +13,10 @@
 
 @interface Option : NSManagedObject
 
+@property (nonatomic, retain) NSNumber * codeOff;
+@property (nonatomic, retain) NSNumber * codeOn;
 @property (nonatomic, retain) NSString * title;
-@property (nonatomic, retain) NSString * codeOn;
-@property (nonatomic, retain) NSString * codeOff;
+@property (nonatomic, retain) NSNumber * isOn;
 @property (nonatomic, retain) Alarm *alarm;
 
 @end

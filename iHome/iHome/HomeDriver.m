@@ -127,4 +127,16 @@ typedef NS_ENUM(NSInteger, HomeDriverType)
     // schedule local notification
     [[UIApplication sharedApplication] scheduleLocalNotification:alarm];
 }
+
+- (void)removeLocalNotigicationWithDate:(NSDate *)date
+{
+    NSArray *notifications = [[UIApplication sharedApplication] scheduledLocalNotifications];
+    
+    for (UILocalNotification *local in notifications) {
+        if ([local.fireDate isEqualToDate:date]) {
+            [[UIApplication sharedApplication] cancelLocalNotification:local];
+            return;
+        }
+    }
+}
 @end

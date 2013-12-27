@@ -25,4 +25,5 @@
 - (void)turnKettleOn;
 
 - (void)createLocalNotificationWithDate:(NSDate *)date;
+- (void)removeLocalNotigicationWithDate:(NSDate *)date;
 @end

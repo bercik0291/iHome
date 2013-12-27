@@ -110,7 +110,6 @@
     
     // schedule notification
     [[UIApplication sharedApplication] scheduleLocalNotification:self.localNotification];
-    self.localNotification = nil;
     
     // change alarm object (core data)
     [self changeAlarmWithState:YES];
@@ -118,20 +117,18 @@
 
 - (void)cancelNotification
 {
-    // cancel notification
-    [[UIApplication sharedApplication] cancelLocalNotification:self.localNotification];
-    self.localNotification = nil;
-    
     // change alarm object (core data)
     [self changeAlarmWithState:NO];
     
     // turn kettle
     [self turnKettleOn];
+    
+    // cancel notification
+    [[UIApplication sharedApplication] cancelLocalNotification:self.localNotification];
 }
 
 - (void)changeAlarmWithState:(BOOL)state
 {
-    self.currentAlarm = [Alarm getAlarmWithFireDate:self.localNotification.fireDate withContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
     self.currentAlarm.isOn = @(state);
     
     [self save];
@@ -144,8 +141,7 @@
     // trun all options of this alarm
     for (Option *option in self.currentAlarm.options) {
         
-        if ([option.title isEqualToString:@"Czajnik"]) continue;
-        else {
+        if (![option.title isEqualToString:@"Czajnik"]) {
             
             int opt = state ? [option.codeOn integerValue] : [option.codeOff integerValue];;
             [[HomeDriver mainDriver] turnOptionWithType:opt];
@@ -186,6 +182,15 @@
     }
     
     return _player;
+}
+
+- (Alarm *)currentAlarm
+{
+    if (!_currentAlarm) {
+        _currentAlarm = [Alarm getAlarmWithFireDate:self.localNotification.fireDate withContext:[[[HDSharedDocument defaultDocument] document] managedObjectContext]];
+    }
+    
+    return _currentAlarm;
 }
 
 @end

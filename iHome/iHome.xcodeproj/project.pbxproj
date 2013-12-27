@@ -45,6 +45,7 @@
 		3C64B26F1859CA0C00D2312F /* Option.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C64B26E1859CA0C00D2312F /* Option.m */; };
 		3C82D0FB185B554C00384A07 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C82D0FA185B554C00384A07 /* AVFoundation.framework */; };
 		3C92D533186DA74E0028EDA6 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C92D532186DA74E0028EDA6 /* NSDate+Additions.m */; };
+		3C92D536186DBA5C0028EDA6 /* UIApplication+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C92D535186DBA5C0028EDA6 /* UIApplication+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,8 @@
 		3C82D0FA185B554C00384A07 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3C92D531186DA74E0028EDA6 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		3C92D532186DA74E0028EDA6 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
+		3C92D534186DBA5C0028EDA6 /* UIApplication+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+Additions.h"; sourceTree = "<group>"; };
+		3C92D535186DBA5C0028EDA6 /* UIApplication+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIApplication+Additions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +264,8 @@
 				3C64B2681859BF5000D2312F /* HomeDriver.m */,
 				3C92D531186DA74E0028EDA6 /* NSDate+Additions.h */,
 				3C92D532186DA74E0028EDA6 /* NSDate+Additions.m */,
+				3C92D534186DBA5C0028EDA6 /* UIApplication+Additions.h */,
+				3C92D535186DBA5C0028EDA6 /* UIApplication+Additions.m */,
 			);
 			name = Other;
 			sourceTree = "<group>";
@@ -476,6 +481,7 @@
 				3C2A51E6184DEB4300F80DF2 /* iHomeModel.xcdatamodeld in Sources */,
 				3C2A51FB184DF3FF00F80DF2 /* AlarmViewController.m in Sources */,
 				3C2A51FF184DF42200F80DF2 /* AddAlarmViewController.m in Sources */,
+				3C92D536186DBA5C0028EDA6 /* UIApplication+Additions.m in Sources */,
 				3C2A521A184E19E700F80DF2 /* NSDictionary+JSON.m in Sources */,
 				3C2A5227184E287D00F80DF2 /* OptionViewController.m in Sources */,
 				3C2A5224184E23EF00F80DF2 /* NSDateFormatter+Additions.m in Sources */,

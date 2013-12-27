@@ -18,6 +18,7 @@
 #import "HDSharedDocument.h"
 #import "NSDateFormatter+Additions.h"
 #import "NSDate+Additions.h"
+#import "UIApplication+Additions.h"
 
 // models
 #import "Alarm+Additions.h"
@@ -54,13 +55,21 @@
 {
     [super viewDidLoad];
 
-    double a = 2.3;
-    double b = 2.6;
-    
-    int a_int = floor(a);
-    int b_int = floor(b);
+    [self checkNotificaitons];
+}
 
-    NSLog(@" %d, %d", a_int, b_int);
+- (void)checkNotificaitons
+{
+    for (Alarm *alarm in [self.resultsController fetchedObjects]) {
+        if (![[UIApplication sharedApplication] localNotificationExistWithDate:alarm.clock]) {
+            alarm.isOn = @NO;
+        } else {
+            alarm.isOn = @YES;
+        }
+    }
+    
+    [[[[HDSharedDocument defaultDocument] document] managedObjectContext] save:nil];
+    [[HDSharedDocument defaultDocument] saveDocument];
 }
 
 #pragma mark - Table view data source

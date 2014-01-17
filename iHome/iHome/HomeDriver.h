@@ -23,6 +23,7 @@
 
 // kettle
 - (void)turnKettleOn;
+- (void)turnKettleOff;
 
 - (void)createLocalNotificationWithDate:(NSDate *)date;
 - (void)removeLocalNotigicationWithDate:(NSDate *)date;

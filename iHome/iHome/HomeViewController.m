@@ -21,8 +21,8 @@
 
 typedef NS_ENUM(NSInteger, HomeThingType)
 {
-    HomeThingTypeLights = 0,
-    HomeThingTypeKettle,
+    HomeThingTypeKettle = 0,
+    HomeThingTypeLights = 1,
 };
 
 @implementation HomeViewController
@@ -72,10 +72,14 @@ typedef NS_ENUM(NSInteger, HomeThingType)
     cell.titleLabel.text = option.title;
     [cell.switchButton addTarget:self action:@selector(switchButtonAction:) forControlEvents:UIControlEventTouchUpInside];
     [cell.switchButton setTag:indexPath.row];
+    
+    
 }
 
 - (void)switchButtonAction:(UISwitch *)sender
 {
+    NSLog(@"tag %d", sender.tag);
+    
     switch (sender.tag) {
             
         case HomeThingTypeLights: {
@@ -92,9 +96,9 @@ typedef NS_ENUM(NSInteger, HomeThingType)
         case HomeThingTypeKettle: {
             
             if ([sender isOn]) {
-                [[HomeDriver mainDriver] turnLightsOn];
+                [[HomeDriver mainDriver] turnKettleOn];
             } else {
-                [[HomeDriver mainDriver] turnLightsOff];
+                [[HomeDriver mainDriver] turnKettleOff];
             }
             
             break;

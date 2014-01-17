@@ -12,10 +12,10 @@
 
 typedef NS_ENUM(NSInteger, HomeDriverType)
 {
-    HomeDriverTypeLightsOn = 1,
-    HomeDriverTypeLightsOff,
-    HomeDriverTypeKettleOn,
-    HomeDriverTypeKettleOff,
+    HomeDriverTypeKettleOn = 14,
+    HomeDriverTypeKettleOff = 32,
+    HomeDriverTypeLightsOn = 5,
+    HomeDriverTypeLightsOff = 6
 };
 
 @interface HomeDriver()
@@ -24,6 +24,7 @@ typedef NS_ENUM(NSInteger, HomeDriverType)
 
 @implementation HomeDriver {
     NSInteger _type;
+    NSInteger _typeOff;
 }
 
 + (HomeDriver *)mainDriver
@@ -69,11 +70,7 @@ typedef NS_ENUM(NSInteger, HomeDriverType)
 {
     _type = type;
     
-    // create request
-    NSURLRequest *req = [NSURLRequest requestWithURL:[self baseURL]];
-    
-    // load request in web view
-    [self.webview loadRequest:req];
+    [self turnOption];
 }
 
 - (void)turnLightsOn
@@ -81,12 +78,7 @@ typedef NS_ENUM(NSInteger, HomeDriverType)
     // get home type
     _type = HomeDriverTypeLightsOn;
     
-    // create request
-    NSURLRequest *req = [NSURLRequest requestWithURL:[self baseURL]];
-    
-    // load request in web view
-    [self.webview loadRequest:req];
-    
+    [self turnOption];
 }
 
 - (void)turnLightsOff
@@ -94,23 +86,25 @@ typedef NS_ENUM(NSInteger, HomeDriverType)
     // get home type
     _type = HomeDriverTypeLightsOff;
     
-    // create request
-    NSURLRequest *req = [NSURLRequest requestWithURL:[self baseURL]];
-    
-    // load request in web view
-    [self.webview loadRequest:req];
+    [self turnOption];
 }
 
 - (void)turnKettleOn
 {
-    // get home type
+    // firstly desactive off option
     _type = HomeDriverTypeKettleOn;
     
-    // create request
-    NSURLRequest *req = [NSURLRequest requestWithURL:[self baseURL]];
-    
-    // load request in web view
-    [self.webview loadRequest:req];
+   // _typeOff = HomeDriverTypeKettleOffNo;
+    [self turnOption];
+
+}
+
+- (void)turnKettleOff
+{
+    _type = HomeDriverTypeKettleOff;
+  //  _typeOff = HomeDriverTypeKettleOnNo;
+
+    [self turnOption];
 }
 
 - (void)createLocalNotificationWithDate:(NSDate *)date
@@ -120,7 +114,7 @@ typedef NS_ENUM(NSInteger, HomeDriverType)
     alarm.fireDate = date;
     alarm.alertBody = NSLocalizedString(@"Alarm", nil);
     alarm.alertAction = NSLocalizedString(@"Wyłącz", nil);
-    alarm.applicationIconBadgeNumber = [[UIApplication sharedApplication] applicationIconBadgeNumber] + 1;
+    alarm.applicationIconBadgeNumber = 0;
     alarm.timeZone = [NSTimeZone defaultTimeZone];
     alarm.soundName = @"alarm.mp3";
     
@@ -139,4 +133,15 @@ typedef NS_ENUM(NSInteger, HomeDriverType)
         }
     }
 }
+
+
+- (void)turnOption
+{
+    // create request
+    NSURLRequest *req = [NSURLRequest requestWithURL:[self baseURL]];
+    
+    // load request in web view
+    [self.webview loadRequest:req];
+}
+
 @end

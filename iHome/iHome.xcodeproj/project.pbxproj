@@ -30,7 +30,6 @@
 		3C2A51FB184DF3FF00F80DF2 /* AlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2A51FA184DF3FF00F80DF2 /* AlarmViewController.m */; };
 		3C2A51FF184DF42200F80DF2 /* AddAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2A51FE184DF42200F80DF2 /* AddAlarmViewController.m */; };
 		3C2A5205184E021800F80DF2 /* JMFetchTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2A5204184E021800F80DF2 /* JMFetchTableViewController.m */; };
-		3C2A520A184E132400F80DF2 /* Alarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2A5209184E132400F80DF2 /* Alarm.m */; };
 		3C2A5212184E135300F80DF2 /* Option+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2A5211184E135300F80DF2 /* Option+Additions.m */; };
 		3C2A5215184E136500F80DF2 /* Alarm+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C2A5214184E136500F80DF2 /* Alarm+Additions.m */; };
 		3C2A5217184E19A300F80DF2 /* DefaultObject.json in Resources */ = {isa = PBXBuildFile; fileRef = 3C2A5216184E19A300F80DF2 /* DefaultObject.json */; };
@@ -42,7 +41,8 @@
 		3C47EFA8184E6AA600753BA8 /* HViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C47EFA7184E6AA600753BA8 /* HViewController.m */; };
 		3C47EFAC184E6F2700753BA8 /* EditAlarmViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C47EFAB184E6F2700753BA8 /* EditAlarmViewController.m */; };
 		3C64B2691859BF5000D2312F /* HomeDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C64B2681859BF5000D2312F /* HomeDriver.m */; };
-		3C64B26F1859CA0C00D2312F /* Option.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C64B26E1859CA0C00D2312F /* Option.m */; };
+		3C82BF95187F2E81005AE50B /* Alarm.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C82BF94187F2E81005AE50B /* Alarm.m */; };
+		3C82BF98187F2E82005AE50B /* Option.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C82BF97187F2E82005AE50B /* Option.m */; };
 		3C82D0FB185B554C00384A07 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C82D0FA185B554C00384A07 /* AVFoundation.framework */; };
 		3C92D533186DA74E0028EDA6 /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C92D532186DA74E0028EDA6 /* NSDate+Additions.m */; };
 		3C92D536186DBA5C0028EDA6 /* UIApplication+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C92D535186DBA5C0028EDA6 /* UIApplication+Additions.m */; };
@@ -94,8 +94,6 @@
 		3C2A51FE184DF42200F80DF2 /* AddAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAlarmViewController.m; sourceTree = "<group>"; };
 		3C2A5203184E021800F80DF2 /* JMFetchTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JMFetchTableViewController.h; sourceTree = "<group>"; };
 		3C2A5204184E021800F80DF2 /* JMFetchTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JMFetchTableViewController.m; sourceTree = "<group>"; };
-		3C2A5208184E132400F80DF2 /* Alarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alarm.h; sourceTree = "<group>"; };
-		3C2A5209184E132400F80DF2 /* Alarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alarm.m; sourceTree = "<group>"; };
 		3C2A5210184E135300F80DF2 /* Option+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Option+Additions.h"; sourceTree = "<group>"; };
 		3C2A5211184E135300F80DF2 /* Option+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Option+Additions.m"; sourceTree = "<group>"; };
 		3C2A5213184E136500F80DF2 /* Alarm+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Alarm+Additions.h"; sourceTree = "<group>"; };
@@ -116,8 +114,10 @@
 		3C47EFAB184E6F2700753BA8 /* EditAlarmViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAlarmViewController.m; sourceTree = "<group>"; };
 		3C64B2671859BF5000D2312F /* HomeDriver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeDriver.h; sourceTree = "<group>"; };
 		3C64B2681859BF5000D2312F /* HomeDriver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeDriver.m; sourceTree = "<group>"; };
-		3C64B26D1859CA0C00D2312F /* Option.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Option.h; sourceTree = "<group>"; };
-		3C64B26E1859CA0C00D2312F /* Option.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Option.m; sourceTree = "<group>"; };
+		3C82BF93187F2E81005AE50B /* Alarm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Alarm.h; sourceTree = "<group>"; };
+		3C82BF94187F2E81005AE50B /* Alarm.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Alarm.m; sourceTree = "<group>"; };
+		3C82BF96187F2E82005AE50B /* Option.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Option.h; sourceTree = "<group>"; };
+		3C82BF97187F2E82005AE50B /* Option.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Option.m; sourceTree = "<group>"; };
 		3C82D0FA185B554C00384A07 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3C92D531186DA74E0028EDA6 /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		3C92D532186DA74E0028EDA6 /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
@@ -326,10 +326,10 @@
 		3C2A520E184E132800F80DF2 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3C2A5208184E132400F80DF2 /* Alarm.h */,
-				3C2A5209184E132400F80DF2 /* Alarm.m */,
-				3C64B26D1859CA0C00D2312F /* Option.h */,
-				3C64B26E1859CA0C00D2312F /* Option.m */,
+				3C82BF93187F2E81005AE50B /* Alarm.h */,
+				3C82BF94187F2E81005AE50B /* Alarm.m */,
+				3C82BF96187F2E82005AE50B /* Option.h */,
+				3C82BF97187F2E82005AE50B /* Option.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -476,7 +476,6 @@
 				3C2A51E0184DEB1E00F80DF2 /* JMFetchCollectionViewController.m in Sources */,
 				3C2A519F184DDBB400F80DF2 /* main.m in Sources */,
 				3C92D533186DA74E0028EDA6 /* NSDate+Additions.m in Sources */,
-				3C64B26F1859CA0C00D2312F /* Option.m in Sources */,
 				3C2A5215184E136500F80DF2 /* Alarm+Additions.m in Sources */,
 				3C2A51E6184DEB4300F80DF2 /* iHomeModel.xcdatamodeld in Sources */,
 				3C2A51FB184DF3FF00F80DF2 /* AlarmViewController.m in Sources */,
@@ -486,9 +485,10 @@
 				3C2A5227184E287D00F80DF2 /* OptionViewController.m in Sources */,
 				3C2A5224184E23EF00F80DF2 /* NSDateFormatter+Additions.m in Sources */,
 				3C2A51A3184DDBB400F80DF2 /* HomeAppDelegate.m in Sources */,
+				3C82BF98187F2E82005AE50B /* Option.m in Sources */,
 				3C2A51CF184DDCA800F80DF2 /* HomeCell.m in Sources */,
 				3C2A51C9184DDC6E00F80DF2 /* HomeViewController.m in Sources */,
-				3C2A520A184E132400F80DF2 /* Alarm.m in Sources */,
+				3C82BF95187F2E81005AE50B /* Alarm.m in Sources */,
 				3C2A51E3184DEB2D00F80DF2 /* HDSharedDocument.m in Sources */,
 				3C47EFAC184E6F2700753BA8 /* EditAlarmViewController.m in Sources */,
 				3C2A51D3184DE40500F80DF2 /* CheckBoxView.m in Sources */,

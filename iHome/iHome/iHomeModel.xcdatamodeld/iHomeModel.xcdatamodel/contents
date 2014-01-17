@@ -10,10 +10,10 @@
         <attribute name="codeOn" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="isOn" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="alarm" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Alarm" inverseName="options" inverseEntity="Alarm" syncable="YES"/>
+        <relationship name="alarm" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Alarm" inverseName="options" inverseEntity="Alarm" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Alarm" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Option" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Alarm" positionX="0" positionY="0" width="128" height="90"/>
+        <element name="Option" positionX="270" positionY="-28" width="128" height="118"/>
     </elements>
 </model>
